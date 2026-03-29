@@ -619,6 +619,174 @@
 
     .footer-links a:hover { color: var(--accent); }
 
+    /* ─── GALLERY ─── */
+    .gallery-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(180deg, rgba(26, 58, 92, 0.35) 0%, rgba(10, 22, 40, 0.4) 50%, transparent 100%);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .gallery-section .container { max-width: 1100px; }
+
+    .gallery-stage-wrap {
+      margin-top: 2.25rem;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 28px 56px rgba(0, 0, 0, 0.4);
+      background: var(--shuttle);
+    }
+
+    .gallery-carousel {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-height: min(70vh, 620px);
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .gallery-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.85s ease;
+      pointer-events: none;
+    }
+
+    .gallery-slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-carousel-dots {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.4rem 0.75rem;
+      background: rgba(10, 22, 40, 0.65);
+      backdrop-filter: blur(8px);
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .gallery-carousel-dots button {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .gallery-carousel-dots button[aria-current="true"] {
+      background: var(--accent);
+      transform: scale(1.15);
+    }
+
+    .gallery-carousel-dots button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .gallery-filmstrip-outer {
+      margin-top: 1.25rem;
+      position: relative;
+      mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    }
+
+    .gallery-filmstrip {
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .gallery-filmstrip-track {
+      display: flex;
+      gap: 0.75rem;
+      width: max-content;
+      padding: 0.25rem 0;
+      animation: gallery-marquee var(--gallery-marquee-duration, 48s) linear infinite;
+    }
+
+    .gallery-filmstrip:hover .gallery-filmstrip-track {
+      animation-play-state: paused;
+    }
+
+    .gallery-thumb {
+      flex: 0 0 auto;
+      width: 140px;
+      height: 88px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: 0.75;
+      transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
+    }
+
+    .gallery-thumb:hover,
+    .gallery-thumb:focus-visible {
+      opacity: 1;
+      border-color: rgba(240, 192, 64, 0.5);
+    }
+
+    .gallery-thumb.is-current {
+      opacity: 1;
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-empty {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 480px;
+      margin: 2rem auto 0;
+    }
+
+    .gallery-empty strong { color: rgba(255, 255, 255, 0.85); }
+
+    @keyframes gallery-marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-slide { transition: none; }
+      .gallery-filmstrip-track { animation: none; }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-thumb { width: 110px; height: 70px; }
+      .gallery-carousel { max-height: 52vh; }
+    }
+
     /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -651,6 +819,7 @@
     <a class="nav-logo" href="#" aria-label="Q Badminton Club home">Q BADMINTON</a>
     <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#location">Location</a></li>
@@ -694,6 +863,39 @@
       <div class="info-value">Completely Free</div>
     </div>
   </div>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery-section" aria-labelledby="gallery-heading">
+    <div class="container">
+      <p class="section-label">Club Life</p>
+      <h2 class="section-title" id="gallery-heading">Photo Gallery</h2>
+      <p class="section-body">Snapshots from our sessions. Add files to the <code style="font-size:0.9em;color:var(--accent);background:rgba(240,192,64,0.1);padding:0.15em 0.4em;border-radius:4px;">gallery</code> folder, run <code style="font-size:0.85em;color:rgba(255,255,255,0.8);">update-gallery-manifest.ps1</code>, then push to GitHub.</p>
+
+      <div id="gallery-root">
+        <p class="gallery-empty" id="gallery-empty">Loading photos…</p>
+        <div id="gallery-content" hidden>
+          <div class="gallery-stage-wrap">
+            <div
+              class="gallery-carousel"
+              id="gallery-carousel"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Club photo slideshow"
+              tabindex="0"
+            >
+              <div id="gallery-slides"></div>
+              <div class="gallery-carousel-dots" id="gallery-dots" role="tablist" aria-label="Choose photo"></div>
+            </div>
+          </div>
+          <div class="gallery-filmstrip-outer">
+            <div class="gallery-filmstrip">
+              <div class="gallery-filmstrip-track" id="gallery-filmstrip-track"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ABOUT -->
   <section id="about" aria-labelledby="about-heading">
@@ -890,10 +1092,172 @@
       <a href="https://qbadmintonsouthport.blogspot.com/p/membership-info.html" rel="noopener">Membership</a>
       <a href="https://qbadmintonsouthport.blogspot.com/p/where-to-find-us.html" rel="noopener">Directions</a>
       <a href="https://qbadmintonsouthport.blogspot.com/p/club-constitution.html" rel="noopener">Club Constitution</a>
-      <a href="https://qbadmintonsouthport.blogspot.com/p/gallery.html" rel="noopener">Gallery</a>
+      <a href="#gallery">Gallery</a>
     </div>
     <p style="margin-top:1.5rem;font-size:0.78rem;opacity:0.3;">© Q Badminton Club Southport. All rights reserved.</p>
   </footer>
+
+  <script>
+  (function () {
+    var emptyEl = document.getElementById('gallery-empty');
+    var contentEl = document.getElementById('gallery-content');
+    var slidesEl = document.getElementById('gallery-slides');
+    var dotsEl = document.getElementById('gallery-dots');
+    var trackEl = document.getElementById('gallery-filmstrip-track');
+    var carouselEl = document.getElementById('gallery-carousel');
+
+    var paths = [];
+    var index = 0;
+    var timer = null;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function showEmpty(msg) {
+      emptyEl.hidden = false;
+      emptyEl.innerHTML = msg;
+      contentEl.hidden = true;
+    }
+
+    function setSlide(i) {
+      if (!paths.length) return;
+      index = ((i % paths.length) + paths.length) % paths.length;
+      var slides = slidesEl.querySelectorAll('.gallery-slide');
+      var thumbs = trackEl.querySelectorAll('.gallery-thumb');
+      var dots = dotsEl.querySelectorAll('button');
+      for (var s = 0; s < slides.length; s++) {
+        slides[s].classList.toggle('is-active', s === index);
+        slides[s].setAttribute('aria-hidden', s === index ? 'false' : 'true');
+      }
+      var n = paths.length;
+      for (var t = 0; t < thumbs.length; t++) {
+        thumbs[t].classList.toggle('is-current', (t % n) === index);
+      }
+      for (var d = 0; d < dots.length; d++) {
+        dots[d].setAttribute('aria-current', d === index ? 'true' : 'false');
+      }
+    }
+
+    function next() {
+      setSlide(index + 1);
+    }
+
+    function prev() {
+      setSlide(index - 1);
+    }
+
+    function startAutoplay() {
+      if (timer || reducedMotion || paths.length < 2) return;
+      timer = window.setInterval(next, 5500);
+    }
+
+    function stopAutoplay() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function build(pathsIn) {
+      paths = pathsIn;
+      if (!paths.length) {
+        showEmpty('<strong>No photos yet.</strong><br>Copy images into the <strong>gallery</strong> folder on your computer, run <strong>update-gallery-manifest.ps1</strong>, then push to GitHub.');
+        return;
+      }
+
+      emptyEl.hidden = true;
+      contentEl.hidden = false;
+      slidesEl.innerHTML = '';
+      dotsEl.innerHTML = '';
+      trackEl.innerHTML = '';
+
+      paths.forEach(function (src, i) {
+        var slide = document.createElement('div');
+        slide.className = 'gallery-slide' + (i === 0 ? ' is-active' : '');
+        slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+        var img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Club photo ' + (i + 1) + ' of ' + paths.length;
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        slide.appendChild(img);
+        slidesEl.appendChild(slide);
+
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', 'Photo ' + (i + 1));
+        dot.setAttribute('aria-current', i === 0 ? 'true' : 'false');
+        dot.addEventListener('click', function () {
+          stopAutoplay();
+          setSlide(i);
+          startAutoplay();
+        });
+        dotsEl.appendChild(dot);
+      });
+
+      function addThumbs(target) {
+        paths.forEach(function (src, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'gallery-thumb' + (i === 0 ? ' is-current' : '');
+          btn.setAttribute('aria-label', 'Show photo ' + (i + 1));
+          var timg = document.createElement('img');
+          timg.src = src;
+          timg.alt = '';
+          btn.appendChild(timg);
+          btn.addEventListener('click', function () {
+            stopAutoplay();
+            setSlide(i);
+            startAutoplay();
+          });
+          target.appendChild(btn);
+        });
+      }
+
+      addThumbs(trackEl);
+      addThumbs(trackEl);
+
+      var filmOuter = contentEl.querySelector('.gallery-filmstrip-outer');
+      if (filmOuter) filmOuter.hidden = paths.length < 2;
+      dotsEl.style.display = paths.length < 2 ? 'none' : '';
+
+      var duration = Math.max(28, paths.length * 10);
+      trackEl.style.setProperty('--gallery-marquee-duration', duration + 's');
+
+      if (!reducedMotion) {
+        startAutoplay();
+      }
+
+      carouselEl.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          stopAutoplay();
+          next();
+          startAutoplay();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          stopAutoplay();
+          prev();
+          startAutoplay();
+        }
+      });
+
+      carouselEl.addEventListener('mouseenter', stopAutoplay);
+      carouselEl.addEventListener('mouseleave', startAutoplay);
+    }
+
+    fetch('gallery/manifest.json', { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('manifest');
+        return r.json();
+      })
+      .then(function (data) {
+        var list = Array.isArray(data) ? data : [];
+        build(list);
+      })
+      .catch(function () {
+        showEmpty('Could not load the photo list. Ensure <strong>gallery/manifest.json</strong> exists and the site is deployed.');
+      });
+  })();
+  </script>
 
 </body>
 </html>
